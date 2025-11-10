@@ -9,10 +9,11 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center">
                     <p className={`${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        © 2024 Shivam Shukla. Built with React & Tailwind CSS
+                        © {new Date().getFullYear()} Shivam Shukla. Building Next Gen Tech Solutions
                     </p>
                     <p className={`text-sm mt-2 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                        Full-Stack Developer | Microservices Architect | AI Integration Specialist
+                        Full-Stack Developer | Microservices Architect | AI-powered integrations | Building scalable web apps
+
                     </p>
                 </div>
             </div>

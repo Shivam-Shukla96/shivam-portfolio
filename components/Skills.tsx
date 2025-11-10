@@ -15,7 +15,7 @@ export default function Skills({ skills }: Props) {
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto mb-12 rounded-full" />
 
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="fade-in-up grid md:grid-cols-2 gap-8">
                     {Object.entries(skills).map(([category, items], index) => (
                         <div key={index} className="glass p-6 rounded-2xl card-hover">
                             <h3 className={`text-xl font-bold mb-4 flex items-center ${isDark ? 'text-white' : 'text-gray-900'}`}>

@@ -117,7 +117,7 @@ body {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(100px);
   }
   to {
     opacity: 1;
@@ -126,7 +126,50 @@ body {
 }
 
 .fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+}
+.fade-in-down {
+  animation: fadeInDown 1s ease-out forwards;
+}
+
+@keyframes fadeInleft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.fade-in-left {
+  animation: fadeInleft 1s ease-out forwards;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.fade-in-right {
+  animation: fadeInRight 1s ease-out forwards;
 }
 
 .cursor-glow {
@@ -140,3 +183,32 @@ body {
   z-index: 9999;
   transition: opacity 0.3s;
 }
+
+.morph-shape {
+/* start with a nice rounded shape (overrides Tailwind rounded-* if present) */
+  border-radius: 38% 62% 55% 45% / 45% 35% 65% 55%;
+  will-change: border-radius, transform;
+  animation: morph 7.5s ease-in-out infinite;
+  }
+  @keyframes morph {
+  0% {
+  border-radius: 38% 62% 55% 45% / 45% 35% 65% 55%;
+  transform: rotate(0.01deg) translateZ(0);
+  }
+  25% {
+  border-radius: 60% 30% 50% 40% / 30% 60% 40% 70%;
+  transform: rotate(1deg) translateZ(0);
+  }
+  50% {
+  border-radius: 45% 55% 30% 70% / 50% 30% 60% 40%;
+  transform: rotate(-0.5deg) translateZ(0);
+  }
+  75% {
+  border-radius: 30% 70% 60% 40% / 60% 40% 30% 70%;
+  transform: rotate(0.8deg) translateZ(0);
+  }
+  100% {
+  border-radius: 38% 62% 55% 45% / 45% 35% 65% 55%;
+  transform: rotate(0.01deg) translateZ(0);
+  }
+  }

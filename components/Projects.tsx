@@ -24,7 +24,7 @@ export default function Projects({ projects }: Props) {
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto mb-12 rounded-full" />
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="fade-in-up grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {projects.map((project, index) => (
                         <div
                             key={index}
@@ -64,7 +64,7 @@ export default function Projects({ projects }: Props) {
                                 ))}
                             </div>
 
-                            <div className="grid grid-cols-3 gap-2 pt-4 border-t border-gray-700">
+                            <div className="grid grid-cols-3 gap-1 pt-4 border-t border-gray-700">
                                 {project.metrics.map((metric, i) => (
                                     <div key={i} className="text-center">
                                         <div className={`text-xs font-semibold ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>

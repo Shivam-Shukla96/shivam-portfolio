@@ -18,7 +18,8 @@ export default function NavBar({ isMenuOpen, setIsMenuOpen, activeSection, scrol
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className={`text-2xl font-bold gradient-text transition-all duration-300 ${isScrolled ? 'scale-90' : ''}`}>
-                        SS
+                        S
+                        <span className=" align-top text-[0.75em] -translate-y-1 transform ml-0.5">2</span>
                     </div>
 
                     <div className="hidden md:flex space-x-8">
