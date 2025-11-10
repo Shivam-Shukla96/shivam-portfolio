@@ -2,11 +2,13 @@
 import React from 'react';
 import { Code, Database, Cloud, Zap } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import useAnimateOnScroll from './hooks/useAnimateOnScroll';
 
 type Props = { skills: Record<string, string[]> };
 
 export default function Skills({ skills }: Props) {
     const { isDark } = useTheme();
+    const gridRef = useAnimateOnScroll('fade-in-up', { rootMargin: '0px 0px 0px 0px', once: false });
     return (
         <section id="skills" className={`py-20 ${isDark ? 'bg-slate-800/50' : 'bg-white'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,7 +17,7 @@ export default function Skills({ skills }: Props) {
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto mb-12 rounded-full" />
 
-                <div className="fade-in-up grid md:grid-cols-2 gap-8">
+                <div ref={gridRef} className="grid md:grid-cols-2 gap-8">
                     {Object.entries(skills).map(([category, items], index) => (
                         <div key={index} className="glass p-6 rounded-2xl card-hover">
                             <h3 className={`text-xl font-bold mb-4 flex items-center ${isDark ? 'text-white' : 'text-gray-900'}`}>

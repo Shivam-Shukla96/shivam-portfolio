@@ -4,9 +4,12 @@ import { Mail, Download, Github, Linkedin, Phone, Code } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { contacts } from '../data/contacts';
 import Image from 'next/image';
+import useAnimateOnScroll from './hooks/useAnimateOnScroll';
 
 export default function Hero() {
     const { isDark } = useTheme();
+    const leftRef = useAnimateOnScroll('fade-in-left', { rootMargin: '0px 0px -10% 0px', once: false });
+    const imageRef = useAnimateOnScroll('fade-in-up', { rootMargin: '0px 0px -10% 0px', once: false });
     return (
         <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
             <div className="absolute inset-0 overflow-hidden">
@@ -16,7 +19,7 @@ export default function Hero() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
-                    <div className="fade-in-left">
+                    <div ref={leftRef}>
                         <div className={`inline-block px-4 py-2 rounded-full mb-4 ${isDark ? 'bg-indigo-500/20 text-indigo-300' : 'bg-indigo-100 text-indigo-600'}`}>
                             👋 Welcome to my portfolio
                         </div>
@@ -64,7 +67,7 @@ export default function Hero() {
                         </div>
                     </div>
 
-                    <div className="flex fade-in-up justify-center float-animation">
+                    <div ref={imageRef} className="flex justify-center float-animation">
                         <div className="relative">
                             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-2xl opacity-30" />
                             <div className="relative w-64 h-64 md:w-80 md:h-80 overflow-hidden glass morph-shape">

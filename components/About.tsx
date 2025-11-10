@@ -3,9 +3,12 @@ import React from 'react';
 import { Zap, Code, Cloud } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { educationTimeline } from '../data/siteData';
+import useAnimateOnScroll from './hooks/useAnimateOnScroll';
 
 export default function About() {
     const { isDark } = useTheme();
+    const expRef = useAnimateOnScroll('fade-in-left', { rootMargin: '0px 0px -10% 0px', once: false });
+    const eduRef = useAnimateOnScroll('fade-in-right', { rootMargin: '0px 0px -10% 0px', once: false });
     return (
         <section id="about" className={`py-20 ${isDark ? 'bg-slate-800/50' : 'bg-white'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,7 +18,7 @@ export default function About() {
                 <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto mb-12 rounded-full" />
 
                 <div className="grid md:grid-cols-2 gap-12">
-                    <div className="fade-in-left glass p-8 rounded-2xl card-hover">
+                    <div ref={expRef} className="glass p-8 rounded-2xl card-hover">
                         <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                             Professional Experience
                         </h3>
@@ -52,7 +55,7 @@ export default function About() {
                         </div>
                     </div>
 
-                    <div className="fade-in-right glass p-8 rounded-2xl card-hover">
+                    <div ref={eduRef} className="glass p-8 rounded-2xl card-hover">
                         <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                             Education
                         </h3>

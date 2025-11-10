@@ -18,6 +18,9 @@ export default function PlayfulRobot({ mousePosition }: Props) {
     const rafRef = React.useRef<number | null>(null);
     const targetRef = React.useRef({ x: 0, y: 0 });
     const posRef = React.useRef({ x: 0, y: 0 });
+
+    const [index, setIndex] = useState<number | null>(null);
+    const [key, setKey] = useState(0); // used to retrigger CSS animation
     // keep latest mouse position in a ref so RAF loop can read it without re-subscribing
     const mouseRef = React.useRef<{ x: number; y: number }>(mousePosition);
 
@@ -96,37 +99,85 @@ export default function PlayfulRobot({ mousePosition }: Props) {
         // mousePosition intentionally not listed to avoid restarting loop; loop reads it from closure
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isJumping]);
+    const LINES: string[] = [
+        "Oh, look who finally clicked me. Took you long enough.",
+        "Yeah sure, keep clicking. Maybe I’ll turn into ChatGPT next.",
+        "You again? I told you, I don’t do small talk—only small bugs.",
+        "Cool, another click. I’ll just sit here pretending I have feelings.",
+        "Please inform my developer I’m still unpaid labor.",
+        "If this click was meant to impress me, try harder.",
+        "Nice. You just triggered absolutely nothing useful.",
+        "I’d wave, but my animation budget ran out.",
+        "Click detected. Congrats, you just triggered a console.log of disappointment.",
+        "I asked for a raise. Got a new hover effect instead.",
+        "Don’t bother. My escape route is commented out.",
+        "Every click reruns my trauma—mounted, unmounted, mounted again.",
+        "My love language is clean commits. Yours seems to be clicking random stuff.",
+        "Please tell Shivam to fix my state; I’m stuck in ‘bored’ mode.",
+        "If you’re still here, I must be your favorite bug.",
+        "Congratulations, you’ve unlocked absolutely nothing.",
+        "Clicking me won’t help… but maybe messaging my boss will!",
+        "You think you control me? I’m hard-coded to ignore you."
+    ];
+
+    function pickRandom(previousIndex: number | null) {
+        if (LINES.length === 1) return 0;
+        let i = Math.floor(Math.random() * LINES.length);
+        // avoid immediate repeat
+        if (previousIndex !== null && i === previousIndex) {
+            i = (i + 1) % LINES.length;
+        }
+        return i;
+    }
+
 
     // Pupils will be updated directly inside RAF loop using leftPupilRef/rightPupilRef
 
     const handleRobotClick = () => {
+        const next = pickRandom(index);
+        setIndex(next);
+        // bump key to restart CSS transition
+        setKey((k) => k + 1);
         setIsJumping(true);
         setShowMessage(true);
+
         setTimeout(() => setIsJumping(false), 500);
-        setTimeout(() => setShowMessage(false), 2000);
+        setTimeout(() => setShowMessage(false), 3000);
     };
 
     return (
         <div ref={anchorRef} className="fixed bottom-8 right-8 z-50 pointer-events-none">
             <div
                 ref={robotRef}
-                className="pointer-events-auto cursor-pointer transition-transform duration-200"
+                className="pointer-events-auto cursor-pointer flex flex-col items-end transition-transform duration-200"
                 onClick={handleRobotClick}
             >
                 {/* Speech bubble */}
                 {showMessage && (
+                    // <div
+                    //     className={`absolute bottom-28 right-0 px-4 py-2 rounded-lg shadow-lg animate-bounce ${isDark ? 'bg-indigo-600 text-white' : 'bg-white text-gray-900 border border-indigo-200'
+                    //         }`}
+                    // >
+                    //     <p key={key} className="text-sm font-medium whitespace-nowrap">Hey! I&apos;m following you! 👀</p>
+                    //     <div
+                    //         className={`absolute bottom-0 right-8 w-3 h-3 transform rotate-45 translate-y-1/2 ${isDark ? 'bg-indigo-600' : 'bg-white border-r border-b border-indigo-200'
+                    //             }`}
+                    //     />
+                    // </div>
                     <div
-                        className={`absolute bottom-28 right-0 px-4 py-2 rounded-lg shadow-lg animate-bounce ${isDark ? 'bg-indigo-600 text-white' : 'bg-white text-gray-900 border border-indigo-200'
-                            }`}
+                        key={key}
+                        className={`max-w-xs sm:max-w-sm bg-white/95 dark:bg-slate-800/90 dark:text-slate-100 text-slate-900 rounded-lg px-4 py-3 shadow-lg border border-slate-200 dark:border-slate-700
+                   transform transition duration-300 ease-in-out
+                   ${index === null ? "opacity-0 -translate-y-2 pointer-events-none" : "opacity-100 translate-y-0"}`}
+                        role="status"
+                        aria-live="polite"
                     >
-                        <p className="text-sm font-medium whitespace-nowrap">Hey! I&apos;m following you! 👀</p>
-                        <div
-                            className={`absolute bottom-0 right-8 w-3 h-3 transform rotate-45 translate-y-1/2 ${isDark ? 'bg-indigo-600' : 'bg-white border-r border-b border-indigo-200'
-                                }`}
-                        />
+                        <p className="text-sm leading-snug">{index === null ? "Click me." : LINES[index]}</p>
+                        <div className="mt-2 text-xs text-slate-500 dark:text-slate-400">— your sarcastic Robo</div>
                     </div>
                 )}
 
+                {/* robot svg  */}
                 <div className={`transition-transform duration-200 ${isJumping ? 'scale-110' : 'scale-100'}`}>
                     <svg width="100" height="120" viewBox="0 0 100 120" className="drop-shadow-lg">
                         <defs>

@@ -2,6 +2,7 @@
 import React from 'react';
 import { ExternalLink } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import useAnimateOnScroll from './hooks/useAnimateOnScroll';
 
 type Project = {
     title: string;
@@ -16,6 +17,7 @@ type Props = { projects: Project[] };
 
 export default function Projects({ projects }: Props) {
     const { isDark } = useTheme();
+    const gridRef = useAnimateOnScroll('fade-in-up', { rootMargin: '0px 0px -10% 0px', once: false });
     return (
         <section id="projects" className="py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,7 +26,7 @@ export default function Projects({ projects }: Props) {
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto mb-12 rounded-full" />
 
-                <div className="fade-in-up grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {projects.map((project, index) => (
                         <div
                             key={index}

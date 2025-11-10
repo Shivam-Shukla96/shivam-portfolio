@@ -12,7 +12,7 @@ export default function Contact() {
     // refs that will add/remove animation classes on intersection so animations replay on re-entry
     const outerRef = useAnimateOnScroll('fade-in-up', { rootMargin: '0px 0px -10% 0px', once: false });
     const listRef = useAnimateOnScroll('fade-in-left', { rootMargin: '0px 0px -10% 0px', once: false });
-    const locationRef = useAnimateOnScroll('fade-in-right', { rootMargin: '0px 0px -10% 0px', once: false });
+    const locationRef = useAnimateOnScroll('fade-in-down', { rootMargin: '0px 0px -10% 0px', once: false });
     const socialsRef = useAnimateOnScroll('fade-in-right', { rootMargin: '0px 0px -10% 0px', once: false });
 
     return (
@@ -24,8 +24,11 @@ export default function Contact() {
                 <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto mb-12 rounded-full" />
 
                 <div ref={outerRef} className="max-w-2xl mx-auto">
-                    <div className="glass p-8 rounded-2xl">
-                        <div ref={listRef} className="space-y-6">
+                    <div className="glass space-y-6 p-8 rounded-2xl">
+                        <div
+                            ref={listRef}
+
+                            className="space-y-6">
                             {contacts
                                 .filter((c) => ['email', 'phone'].includes(c.id))
                                 .map((c) => (
@@ -35,6 +38,7 @@ export default function Contact() {
                                         className="flex items-center space-x-4 p-4 glass rounded-lg hover:scale-105 transition-all duration-300 group"
                                     >
                                         <div
+
                                             className={`p-3 rounded-lg group-hover:scale-110 transition-all duration-300 ${c.id === 'email'
                                                 ? 'bg-gradient-to-r from-indigo-600 to-purple-600'
                                                 : 'bg-gradient-to-r from-purple-600 to-pink-600'
@@ -55,7 +59,7 @@ export default function Contact() {
                                     </a>
                                 ))}
 
-                            <div ref={locationRef} className="flex items-center space-x-4 p-4 glass rounded-lg">
+                            <div ref={listRef} className="flex items-center space-x-4 p-4 glass rounded-lg">
                                 <div className="p-3 bg-gradient-to-r from-pink-600 to-red-600 rounded-lg">
                                     <MapPin className="text-white" size={24} />
                                 </div>
@@ -64,24 +68,24 @@ export default function Contact() {
                                     <div className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Gurugram, Haryana, India</div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div className=" pt-6 border-t border-gray-700">
-                                <div ref={socialsRef} className={`flex justify-center space-x-4 ${isDark ? 'text-white' : 'text-gray-700'}`}>
-                                    {contacts
-                                        .filter((c) => ['github', 'linkedin'].includes(c.id))
-                                        .map((c) => (
-                                            <a
-                                                key={c.id}
-                                                href={c.href}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="p-3 glass rounded-lg hover:scale-110 transition-all duration-300"
-                                            >
-                                                {c.id === 'github' && <Github size={28} />}
-                                                {c.id === 'linkedin' && <Linkedin size={28} />}
-                                            </a>
-                                        ))}
-                                </div>
+                        <div className=" pt-6 border-t border-gray-700">
+                            <div ref={socialsRef} className={`flex justify-center space-x-4 ${isDark ? 'text-white' : 'text-gray-700'}`}>
+                                {contacts
+                                    .filter((c) => ['github', 'linkedin'].includes(c.id))
+                                    .map((c) => (
+                                        <a
+                                            key={c.id}
+                                            href={c.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="p-3 glass rounded-lg hover:scale-110 transition-all duration-300"
+                                        >
+                                            {c.id === 'github' && <Github size={28} />}
+                                            {c.id === 'linkedin' && <Linkedin size={28} />}
+                                        </a>
+                                    ))}
                             </div>
                         </div>
                     </div>

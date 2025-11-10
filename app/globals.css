@@ -25,6 +25,20 @@ body {
   font-family: var(--font-poppins, Poppins), Arial, Helvetica, sans-serif;
 }
 
+/* Base nav styling to avoid flashing borders when toggling scrolled state.
+   We keep a 1px border but make it transparent by default and transition
+   the border-color/background so toggling `.glass` won't create a sudden
+   layout change or white seam on some browsers. */
+nav {
+  background: transparent;
+  border: 1px solid rgba(226, 232, 240, 0);
+  transition: background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+  will-change: transform, opacity, border-color;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
 /* Moved page styles (previously inline in page.tsx) */
 :root {
   --primary: #6366f1;
@@ -54,15 +68,18 @@ body {
   --border: #e2e8f0;
 }
 
+
 .glass {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  /* only change the border color (not layout) to avoid flashes */
+  border: 1px solid rgba(226, 232, 240, 0.2);
+  /* border-color: rgba(226, 232, 240, 0.2); */
 }
 
 .dark .glass {
   background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-color: rgba(100, 116, 139, 0.2);
 }
 
 .gradient-text {
@@ -212,3 +229,20 @@ body {
   transform: rotate(0.01deg) translateZ(0);
   }
   }
+
+  /* typing text animation */
+   @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+   }
+  @keyframes blink {
+   0%, 100% { border-color: transparent; }
+   50% { border-color: var(--foreground); }
+  }
+  .typing {
+   overflow: hidden;
+   border-right: 2px solid var(--foreground);
+   white-space: nowrap;
+   animation: typing 3.5s steps(30, end), blink 0.75s step-end infinite;
+  }
+
