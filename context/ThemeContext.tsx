@@ -54,24 +54,28 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    // Initialize from localStorage or system preference (runs only on client)
-    const [isDark, setIsDark] = useState<boolean>(() => {
-        if (typeof window === "undefined") return false;
+    const [isDark, setIsDark] = useState<boolean>(true);
+
+    // Sync from localStorage after mount to prevent hydration mismatch
+    useEffect(() => {
         try {
             const saved = localStorage.getItem("theme");
-            if (saved) return saved === "dark";
-            return window.matchMedia("(prefers-color-scheme: dark)").matches;
-        } catch {
-            return false;
-        }
-    });
+            if (saved) {
+                setIsDark(saved === "dark");
+            }
+        } catch {}
+    }, []);
 
-    // Sync class and storage when toggled
+    // Sync class list and localStorage on change
     useEffect(() => {
         const root = document.documentElement;
-        if (isDark) root.classList.add("dark");
-        else root.classList.remove("dark");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
+        if (isDark) {
+            root.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            root.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+        }
     }, [isDark]);
 
     const toggle = () => setIsDark((prev) => !prev);

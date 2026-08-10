@@ -11,12 +11,7 @@ export default function Hero() {
     const { isDark } = useTheme();
     const leftRef = useAnimateOnScroll('fade-in-left', { rootMargin: '0px 0px -10% 0px', once: false });
     const imageRef = useAnimateOnScroll('fade-in-up', { rootMargin: '0px 0px -10% 0px', once: false });
-    const getExperienceYears = () => {
-        const startDate = new Date('2023-06-01');
-        const diffMs = Date.now() - startDate.getTime();
-        const diffYears = diffMs / (1000 * 60 * 60 * 24 * 365.25);
-        return `${Math.floor(diffYears)}`;
-    };
+
 
     return (
         <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
@@ -39,7 +34,7 @@ export default function Hero() {
                         </p>
                         <p className={`text-lg mb-8 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                             Building scalable microservices, AI-powered applications, and high-performance web solutions.
-                            {" "}{getExperienceYears()}+ years of experience delivering production-ready systems.
+                            3+ years of experience delivering production-ready systems.
                         </p>
 
                         <div className="flex flex-wrap gap-4 mb-8">
