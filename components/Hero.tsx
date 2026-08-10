@@ -3,6 +3,7 @@ import React from 'react';
 import { Mail, Download, Github, Linkedin, Phone, Code } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { contacts } from '../data/contacts';
+import { RESUME_URL } from '../data/siteData';
 import Image from 'next/image';
 import useAnimateOnScroll from './hooks/useAnimateOnScroll';
 
@@ -10,6 +11,13 @@ export default function Hero() {
     const { isDark } = useTheme();
     const leftRef = useAnimateOnScroll('fade-in-left', { rootMargin: '0px 0px -10% 0px', once: false });
     const imageRef = useAnimateOnScroll('fade-in-up', { rootMargin: '0px 0px -10% 0px', once: false });
+    const getExperienceYears = () => {
+        const startDate = new Date('2023-06-01');
+        const diffMs = Date.now() - startDate.getTime();
+        const diffYears = diffMs / (1000 * 60 * 60 * 24 * 365.25);
+        return `${Math.floor(diffYears)}`;
+    };
+
     return (
         <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
             <div className="absolute inset-0 overflow-hidden">
@@ -31,7 +39,7 @@ export default function Hero() {
                         </p>
                         <p className={`text-lg mb-8 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                             Building scalable microservices, AI-powered applications, and high-performance web solutions.
-                            2+ year of experience delivering production-ready systems with 99.9% uptime.
+                            {" "}{getExperienceYears()}+ years of experience delivering production-ready systems.
                         </p>
 
                         <div className="flex flex-wrap gap-4 mb-8">
@@ -41,7 +49,7 @@ export default function Hero() {
                                     <span>Get in Touch</span>
                                 </button>
                             </a>
-                            <a href="/Shivam_Shukla_FullstackdDev_Resume.pdf" download className={`flex items-center space-x-2 px-6 py-3 glass rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ${isDark ? 'text-white' : 'text-gray-700'}`}>
+                            <a href={RESUME_URL} download className={`flex items-center space-x-2 px-6 py-3 glass rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ${isDark ? 'text-white' : 'text-gray-700'}`}>
                                 <Download size={20} />
                                 <span>Download CV</span>
                             </a>

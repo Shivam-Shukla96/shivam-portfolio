@@ -70,16 +70,16 @@ nav {
 
 
 .glass {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
-  /* only change the border color (not layout) to avoid flashes */
-  border: 1px solid rgba(226, 232, 240, 0.2);
-  /* border-color: rgba(226, 232, 240, 0.2); */
+  border: 1px solid rgba(226, 232, 240, 0.7);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 4px 10px -2px rgba(0, 0, 0, 0.03);
 }
 
 .dark .glass {
   background: rgba(30, 41, 59, 0.6);
   border-color: rgba(100, 116, 139, 0.2);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
 }
 
 .gradient-text {
@@ -94,8 +94,8 @@ nav {
 }
 
 .card-hover:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 35px -10px rgba(99, 102, 241, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
 }
 
 .dark .card-hover:hover {
